@@ -330,15 +330,9 @@
     else{
       var io = new IntersectionObserver(function(entries){
         entries.forEach(function(en){
-          if(en.isIntersecting){
-            var el = en.target;
-            var sibs = Array.prototype.slice.call(el.parentNode.children).filter(function(c){return c.classList.contains('reveal');});
-            var i = sibs.indexOf(el);
-            el.style.transitionDelay = (i>0 ? (i*80)+'ms' : '0ms');
-            el.classList.add('in'); io.unobserve(el);
-          }
+          if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
         });
-      },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+      },{threshold:0, rootMargin:'0px 0px 12% 0px'});
       els.forEach(function(e){io.observe(e);});
     }
     document.querySelectorAll('.prompt-copy').forEach(function(btn){
